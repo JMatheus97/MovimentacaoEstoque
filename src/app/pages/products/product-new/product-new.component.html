@@ -1,0 +1,38 @@
+<div class="container">
+  <form [formGroup]="formProduct" (ngSubmit)="saveNewClient()">
+        <div class="mb-3">
+            <label for="" class="form-label">Código de Barra</label>
+            <input type="text" class="form-control" formControlName="codigoDeBarra">
+            <div class="form-text text-danger" *ngIf="isFormControlInvalid('codigoDeBarra')">
+                O codigo de barra é obrigatório
+            </div>
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Nome</label>
+          <input type="text" class="form-control" formControlName="nome">
+          <div class="form-text text-danger" *ngIf="isFormControlInvalid('nome')">
+            O nome é obrigatório
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="" class="form-label">Quantidade Mínima</label>
+        <input type="number" class="form-control" formControlName="quantidadeMinima">
+        <div class="form-text text-danger" *ngIf="isFormControlInvalid('quantidadeMinima')">
+          A quantidade é obrigatória
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="" class="form-label">Saldo Inicial</label>
+        <input type="number" class="form-control" formControlName="saldoInicial">
+        <div class="form-text text-danger" *ngIf="isFormControlInvalid('saldoInicial')">
+          O saldo inicial é obrigatório
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" type="submit">
+              Salvar
+            </button>
+    </div>
+    </form>
+</div>

@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <h3> Atualizar Cliente</h3>
+
+        <button class="btn btn-sm btn-secondary" routerLink="/products">Volta</button>
+    </div>
+
+
+    <form [formGroup]="formProduct" (ngSubmit)="updateProdut()">
+      <div class="mb-3">
+        <label for="" class="form-label">Id</label>
+        <input type="text" class="form-control" formControlName="id" readonly >
+    </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Código de Barra</label>
+            <input type="text" class="form-control" formControlName="codigoDeBarra">
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Nome</label>
+          <input type="text" class="form-control" formControlName="nome">
+      </div>
+      <div class="mb-3">
+        <label for="" class="form-label">Quantidade Mínima</label>
+        <input type="number" class="form-control" formControlName="quantidadeMinima">
+      </div>
+
+      <div class="mb-3">
+        <label for="" class="form-label">Saldo Inicial</label>
+        <input type="number" class="form-control" readonly  formControlName="saldoInicial">
+        <div class="form-text text-danger" *ngIf="isFormControlInvalid('saldoInicial')">
+          O saldo Inicial não pode ser Alterado !
+      </div>
+      </div>
+
+      <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" type="submit">
+              Salvar
+            </button>
+    </div>
+    </form>
+</div>

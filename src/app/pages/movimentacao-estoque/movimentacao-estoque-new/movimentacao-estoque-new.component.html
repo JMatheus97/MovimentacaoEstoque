@@ -1,0 +1,60 @@
+<div class="container">
+  <form [formGroup]="formMovimentacaoEstoque" (ngSubmit)="saveNewMovimentacao()">
+        <div class="mb-3">
+          <label for="" class="form-label">Produto</label>
+          <select class="form-control" formControlName="produto">
+            <option *ngFor="let produto of listProducts" [value]="produto.id">{{ produto.nome }}</option>
+          </select>
+          <div class="form-text text-danger" *ngIf="isFormControlInvalid('produto')">
+            O produto é obrigatório
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Tipo Movimentação</label>
+          <select class="form-select" formControlName="tipoMovimentacao">
+            <option selected>...</option>
+            <option value="ENTRADA">Entrada</option>
+            <option value="SAÍDA">Saída</option>
+            <option *ngIf="getPerfil()" value="SALDO_INICIAL">Saldo Inicial</option>
+            <option *ngIf="getPerfil()" value="AJUSTE_ENTRADA">Ajuste de Entrada</option>
+            <option *ngIf="getPerfil()" value="AJUSTE_SAÍDA">Ajuste de Saída</option>
+          </select>
+          <div class="form-text text-danger" *ngIf="isFormControlInvalid('tipoMovimentacao')">
+            O tipo de movimentação é obrigatório
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="" class="form-label">Quantidade</label>
+        <input type="number" class="form-control" formControlName="quantidade">
+        <div class="form-text text-danger" *ngIf="isFormControlInvalid('quantidade')">
+          A quantidade é obrigatória
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="" class="form-label">Data</label>
+        <input type="date" class="form-control" formControlName="data">
+        <div class="form-text text-danger" *ngIf="isFormControlInvalid('data')">
+          A data é obrigatória
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="" class="form-label">Motivo</label>
+        <input type="text" class="form-control" formControlName="motivo">
+        <div class="form-text text-danger" *ngIf="isFormControlInvalid('motivo')">
+          O motivo é obrigatório
+        </div>
+      </div>
+      <div  *ngIf="getTipoMovimentacao()" class="mb-3">
+        <label for="" class="form-label">Documento</label>
+        <input type="text" class="form-control" formControlName="documento">
+        <div class="form-text text-danger" *ngIf="isFormControlInvalid('documento')">
+          O documento é obrigatório
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" type="submit">
+              Salvar
+            </button>
+    </div>
+    </form>
+</div>

@@ -1,0 +1,83 @@
+<h2>Lista Movimentações Estoque</h2>
+
+<div class="row">
+  <div class="col-md-4 mb-3">
+    <label for="filtroProduto" class="form-label">Filtrar por Produto</label>
+    <input type="text" class="form-control" id="filtroProduto" [(ngModel)]="filtroProduto" (input)="aplicarFiltros()">
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <label for="filtroData" class="form-label">Filtrar por Data</label>
+    <input type="date" class="form-control" id="filtroData" [(ngModel)]="filtroData" (input)="aplicarFiltros()">
+  </div>
+
+  <div class="col-md-4 mb-3">
+    <label for="filtroTipoMovimentacao" class="form-label">Filtrar por Tipo de Movimentação</label>
+    <input type="text" class="form-control" id="filtroTipoMovimentacao" [(ngModel)]="filtroTipoMovimentacao" (input)="aplicarFiltros()">
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr class="center">
+        <th>ID</th>
+        <th>
+          <button class="btn btn-link" (click)="ordenarPor('data')">Data Movimentação</button>
+        </th>
+        <th>
+          <button class="btn btn-link" (click)="ordenarPor('produto')">Produto</button>
+        </th>
+        <th>Tipo do Movimento</th>
+        <th>Documento</th>
+        <th>Quantidade</th>
+        <th>Saldo</th>
+        <th>Situação</th>
+        <th>
+          Ação &nbsp;
+          <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#addNewProduct">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+            </svg>
+          </button>
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let movimentacaoEstoque of listMovimentacaoEstoque">
+        <td class="center">{{movimentacaoEstoque.id}}</td>
+        <td class="center">{{movimentacaoEstoque.data | date:'dd/MM/yyyy'}}</td>
+        <td class="center">{{movimentacaoEstoque.produto?.nome}}</td>
+        <td class="center">{{movimentacaoEstoque.tipoMovimentacao}}</td>
+        <td class="center">{{movimentacaoEstoque.documento}}</td>
+        <td class="center">{{movimentacaoEstoque.quantidade}}</td>
+        <td class="center">{{movimentacaoEstoque.saldo}}</td>
+        <td class="center" [ngClass]="{'highlight': verificaQuantidadeMinima(movimentacaoEstoque)}">
+          <ng-container *ngIf="verificaQuantidadeMinima(movimentacaoEstoque); else elseBlock">
+            {{ movimentacaoEstoque.produto?.quantidadeMinima }}
+          </ng-container>
+          <ng-template #elseBlock>
+           OK
+          </ng-template>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="modal fade" id="addNewProduct" target="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+           <h5 class="modal-title">
+            Adiciona nova Movimentação
+           </h5>
+        </div>
+        <div class="modal-body">
+            <app-movimentacao-estoque-new  (newMovimentacao)="updateList($event)"></app-movimentacao-estoque-new>
+        </div>
+        </div>
+    </div>
+</div>
